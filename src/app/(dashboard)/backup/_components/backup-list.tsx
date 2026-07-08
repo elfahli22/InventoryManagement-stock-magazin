@@ -39,7 +39,7 @@ export async function BackupList() {
       </TableHeader>
       <TableBody>
         {backups.map((backup) => (
-          <TableRow key={backup._id.toString()}>
+          <TableRow key={String(backup._id)}>
             <TableCell className="font-mono text-sm">{backup.filename}</TableCell>
             <TableCell className="text-sm">{backup.collections.join(", ")}</TableCell>
             <TableCell className="text-sm">
