@@ -78,7 +78,7 @@ export const dashboardService = {
       .lean()
       .then((products) =>
         products.map((p) => ({
-          _id: p._id.toString(),
+          _id: String(p._id),
           name: p.name,
           sku: p.sku,
           quantity: p.quantity,
@@ -123,7 +123,7 @@ export const dashboardService = {
       .lean();
 
     return history.map((h) => ({
-      _id: h._id.toString(),
+      _id: String(h._id),
       action: h.action,
       description: `${h.action.replace("_", " ")} - ${(h.product as unknown as { name: string })?.name || "Unknown"}`,
       productName: (h.product as unknown as { name: string })?.name,
@@ -152,7 +152,7 @@ export const dashboardService = {
     }
 
     const products = await Product.find({}).select("sellingPrice").lean();
-    const productPriceMap = new Map(products.map((p) => [p._id.toString(), p.sellingPrice]));
+    const productPriceMap = new Map(products.map((p) => [String(p._id), p.sellingPrice]));
 
     for (const m of movements) {
       const key = new Date(m.createdAt).toISOString().split("T")[0];

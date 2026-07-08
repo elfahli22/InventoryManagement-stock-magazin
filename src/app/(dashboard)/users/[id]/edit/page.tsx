@@ -19,7 +19,7 @@ export default async function EditUserPage({ params }: EditUserPageProps) {
 
   return (
     <div className="max-w-2xl">
-      <PageHeader title="Edit User" description={`Editing ${user.name}`} />
+      <PageHeader title="Edit User" description={`Editing ${(user as unknown as { name: string }).name}`} />
       <UserForm user={JSON.parse(JSON.stringify(user))} />
     </div>
   );

@@ -26,7 +26,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
 
   return (
     <div className="max-w-2xl">
-      <PageHeader title="Edit Product" description={`Editing ${product.name}`} />
+      <PageHeader title="Edit Product" description={`Editing ${(product as unknown as { name: string }).name}`} />
       <ProductForm
         product={JSON.parse(JSON.stringify(product))}
         categories={JSON.parse(JSON.stringify(categories))}

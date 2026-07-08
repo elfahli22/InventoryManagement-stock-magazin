@@ -1,5 +1,6 @@
 import { getAccessToken, getRefreshToken, setAuthCookies } from "./cookies";
 import { verifyToken, signAccessToken, signRefreshToken, type JwtUserPayload } from "./jwt";
+export type { JwtUserPayload };
 
 export async function getSession(): Promise<JwtUserPayload | null> {
   const accessToken = await getAccessToken();

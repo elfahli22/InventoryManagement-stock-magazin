@@ -17,7 +17,7 @@ interface ProductDetailPageProps {
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { id } = await params;
-  let product;
+  let product: any;
 
   try {
     product = await productService.getById(id);

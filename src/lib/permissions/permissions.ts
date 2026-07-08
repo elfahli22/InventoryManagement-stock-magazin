@@ -8,18 +8,21 @@ const PERMISSION_MATRIX: Record<string, Record<Permission, UserRole[]>> = {
     create: ["super_admin", "admin", "manager"],
     update: ["super_admin", "admin", "manager"],
     delete: ["super_admin", "admin"],
+    adjust: [] as UserRole[],
   },
   categories: {
     read: ["super_admin", "admin", "manager", "staff"],
     create: ["super_admin", "admin", "manager"],
     update: ["super_admin", "admin", "manager"],
     delete: ["super_admin", "admin"],
+    adjust: [] as UserRole[],
   },
   suppliers: {
     read: ["super_admin", "admin", "manager", "staff"],
     create: ["super_admin", "admin", "manager"],
     update: ["super_admin", "admin", "manager"],
     delete: ["super_admin", "admin"],
+    adjust: [] as UserRole[],
   },
   stock: {
     read: ["super_admin", "admin", "manager", "staff"],

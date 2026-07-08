@@ -22,7 +22,7 @@ export default async function SupplierDetailPage({ params }: SupplierDetailPageP
     notFound();
   }
 
-  const { supplier, products } = result;
+  const { supplier, products } = result as any;
 
   return (
     <div className="max-w-4xl">

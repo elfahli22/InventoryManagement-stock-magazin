@@ -98,11 +98,11 @@ export const categoryService = {
     const roots: (typeof categories[0] & { children: typeof categories })[] = [];
 
     for (const cat of categories) {
-      map.set(cat._id.toString(), { ...cat, children: [] });
+      map.set(String(cat._id), { ...cat, children: [] });
     }
 
     for (const cat of categories) {
-      const id = cat._id.toString();
+      const id = String(cat._id);
       const node = map.get(id)!;
       if (cat.parent && map.has(cat.parent.toString())) {
         map.get(cat.parent.toString())!.children.push(node);

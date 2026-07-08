@@ -19,7 +19,7 @@ export default async function EditSupplierPage({ params }: EditSupplierPageProps
 
   return (
     <div className="max-w-2xl">
-      <PageHeader title="Edit Supplier" description={`Editing ${result.supplier.name}`} />
+      <PageHeader title="Edit Supplier" description={`Editing ${(result as unknown as { supplier: { name: string } }).supplier.name}`} />
       <SupplierForm supplier={JSON.parse(JSON.stringify(result.supplier))} />
     </div>
   );

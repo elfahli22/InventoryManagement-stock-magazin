@@ -161,7 +161,7 @@ export const reportService = {
 
     return {
       products: products.map((p) => ({
-        _id: p._id.toString(),
+        _id: String(p._id),
         name: p.name,
         sku: p.sku,
         quantity: p.quantity,

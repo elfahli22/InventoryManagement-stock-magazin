@@ -13,7 +13,7 @@ export const POST = apiHandler(async (req) => {
     return validationErrorResponse({ file: ["File is required"] });
   }
 
-  if (!config.upload.allowedTypes.includes(file.type)) {
+  if (!(config.upload.allowedTypes as unknown as string[]).includes(file.type)) {
     return validationErrorResponse({ file: ["Invalid file type"] });
   }
 

@@ -19,7 +19,7 @@ export async function DashboardCharts() {
     );
   }
 
-  const { chartData, topProducts } = result.data;
+  const { chartData, topProducts } = result.data || {};
 
   return (
     <>

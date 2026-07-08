@@ -21,7 +21,7 @@ export default async function EditCategoryPage({ params }: EditCategoryPageProps
 
   return (
     <div className="max-w-2xl">
-      <PageHeader title="Edit Category" description={`Editing ${category.name}`} />
+      <PageHeader title="Edit Category" description={`Editing ${(category as unknown as { name: string }).name}`} />
       <CategoryForm
         category={JSON.parse(JSON.stringify(category))}
         categories={JSON.parse(JSON.stringify(categories))}
