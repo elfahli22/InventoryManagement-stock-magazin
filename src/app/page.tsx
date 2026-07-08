@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
+import { LandingPage } from "@/components/landing/landing-page";
 
 export const dynamic = "force-dynamic";
 
@@ -8,5 +9,6 @@ export default async function Home() {
   if (session) {
     redirect("/dashboard");
   }
-  redirect("/login");
+
+  return <LandingPage />;
 }

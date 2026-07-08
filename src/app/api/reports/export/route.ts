@@ -36,4 +36,4 @@ export const GET = apiHandler(async (req) => {
   }
 
   return NextResponse.json({ success: true, data });
-}, { auth: true, roles: ["super_admin", "admin", "manager"] });
+}, { auth: true, roles: ["super_admin", "admin", "manager", "demo"] });

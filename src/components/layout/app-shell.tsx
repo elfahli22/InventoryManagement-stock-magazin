@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Sidebar } from "./sidebar";
 import { Navbar } from "./navbar";
+import { DemoBanner } from "./demo-banner";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
@@ -23,6 +24,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       )}
 
       <div className="lg:pl-64">
+        <DemoBanner />
         <Navbar onMenuClick={() => setMobileOpen(true)} />
         <main className="min-h-[calc(100vh-3.5rem)]">
           {children}

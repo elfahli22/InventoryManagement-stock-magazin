@@ -4,6 +4,7 @@ import { userService } from "@/lib/services/user.service";
 import { createUserSchema, updateUserSchema, updateProfileSchema, changePasswordSchema } from "@/lib/validations/user";
 import { revalidatePath } from "next/cache";
 import { getSession, refreshSession } from "@/lib/auth/session";
+import { guardDemo } from "@/lib/permissions/guards";
 
 export async function createUserAction(formData: FormData) {
   let session = await getSession();
@@ -11,6 +12,8 @@ export async function createUserAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -40,6 +43,8 @@ export async function updateUserAction(id: string, formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -69,6 +74,8 @@ export async function deleteUserAction(id: string) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   try {
     await userService.delete(id);
@@ -85,6 +92,8 @@ export async function updateProfileAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -112,6 +121,8 @@ export async function changePasswordAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     currentPassword: formData.get("currentPassword") as string,

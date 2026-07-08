@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { useAuth } from "@/providers/auth-provider";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -33,8 +34,14 @@ const navItems = [
   { href: "/backup", label: "Backup", icon: Shield },
 ];
 
+const demoRestricted = new Set(["/users", "/settings", "/backup"]);
+
 export function Sidebar() {
   const pathname = usePathname();
+  const { user } = useAuth();
+  const filteredItems = user?.role === "demo"
+    ? navItems.filter((item) => !demoRestricted.has(item.href))
+    : navItems;
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-background/95 backdrop-blur-xl">
@@ -45,7 +52,7 @@ export function Sidebar() {
         </div>
 
         <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-          {navItems.map((item) => {
+          {filteredItems.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <Link

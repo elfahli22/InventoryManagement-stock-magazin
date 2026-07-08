@@ -4,6 +4,7 @@ import { supplierService } from "@/lib/services/supplier.service";
 import { createSupplierSchema, updateSupplierSchema } from "@/lib/validations/supplier";
 import { revalidatePath } from "next/cache";
 import { getSession, refreshSession } from "@/lib/auth/session";
+import { guardDemo } from "@/lib/permissions/guards";
 
 export async function createSupplierAction(formData: FormData) {
   let session = await getSession();
@@ -11,6 +12,8 @@ export async function createSupplierAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -40,6 +43,8 @@ export async function updateSupplierAction(id: string, formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -69,6 +74,8 @@ export async function deleteSupplierAction(id: string) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   try {
     await supplierService.delete(id);

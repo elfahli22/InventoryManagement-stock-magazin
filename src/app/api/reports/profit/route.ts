@@ -10,4 +10,4 @@ export const GET = apiHandler(async (req) => {
     searchParams.get("endDate") || undefined,
   );
   return successResponse(report);
-}, { auth: true, roles: ["super_admin", "admin", "manager"] });
+}, { auth: true, roles: ["super_admin", "admin", "manager", "demo"] });

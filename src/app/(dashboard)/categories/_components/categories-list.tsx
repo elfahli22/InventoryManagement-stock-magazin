@@ -7,6 +7,7 @@ import { Tags, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { DeleteCategoryButton } from "./delete-category-button";
+import { ShowForNonDemo } from "@/components/shared/authorized";
 
 export async function CategoriesList() {
   const categories = await categoryService.list();
@@ -32,12 +33,14 @@ export async function CategoriesList() {
                 <Tags className="h-5 w-5 text-primary" />
               </div>
               <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button variant="ghost" size="icon" asChild>
-                  <Link href={`/categories/${category._id}/edit`}>
-                    <Edit className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <DeleteCategoryButton id={category._id} />
+                <ShowForNonDemo>
+                  <Button variant="ghost" size="icon" asChild>
+                    <Link href={`/categories/${category._id}/edit`}>
+                      <Edit className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <DeleteCategoryButton id={category._id} />
+                </ShowForNonDemo>
               </div>
             </div>
             <h3 className="font-semibold mb-1">{category.name}</h3>

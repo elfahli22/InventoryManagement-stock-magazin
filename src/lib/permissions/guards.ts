@@ -4,6 +4,14 @@ import {
   AuthorizationError,
   AuthenticationError,
 } from "@/lib/api/api-error";
+import type { JwtUserPayload } from "@/lib/auth/jwt";
+
+export function guardDemo(session: JwtUserPayload | null): string | null {
+  if (session?.role === "demo") {
+    return "Demo accounts cannot perform this action";
+  }
+  return null;
+}
 
 export function guardPermission(
   role: UserRole | undefined | null,

@@ -4,6 +4,7 @@ import { settingsService } from "@/lib/services/settings.service";
 import { updateSettingsSchema } from "@/lib/validations/settings";
 import { revalidatePath } from "next/cache";
 import { getSession, refreshSession } from "@/lib/auth/session";
+import { guardDemo } from "@/lib/permissions/guards";
 
 export async function updateSettingsAction(formData: FormData) {
   let session = await getSession();
@@ -11,6 +12,8 @@ export async function updateSettingsAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     storeName: formData.get("storeName") as string,

@@ -4,6 +4,7 @@ import { stockService } from "@/lib/services/stock.service";
 import { stockInSchema, stockOutSchema, stockAdjustSchema } from "@/lib/validations/stock";
 import { revalidatePath } from "next/cache";
 import { getSession, refreshSession } from "@/lib/auth/session";
+import { guardDemo } from "@/lib/permissions/guards";
 
 export async function stockInAction(formData: FormData) {
   let session = await getSession();
@@ -11,6 +12,8 @@ export async function stockInAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     product: formData.get("product") as string,
@@ -41,6 +44,8 @@ export async function stockOutAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     product: formData.get("product") as string,
@@ -71,6 +76,8 @@ export async function stockAdjustAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     product: formData.get("product") as string,

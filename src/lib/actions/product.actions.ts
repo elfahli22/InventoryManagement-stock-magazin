@@ -4,6 +4,7 @@ import { productService } from "@/lib/services/product.service";
 import { createProductSchema, updateProductSchema } from "@/lib/validations/product";
 import { revalidatePath } from "next/cache";
 import { getSession, refreshSession } from "@/lib/auth/session";
+import { guardDemo } from "@/lib/permissions/guards";
 
 export async function createProductAction(formData: FormData) {
   let session = await getSession();
@@ -11,6 +12,8 @@ export async function createProductAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -47,6 +50,8 @@ export async function updateProductAction(id: string, formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -82,6 +87,8 @@ export async function deleteProductAction(id: string) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   try {
     await productService.delete(id, session.userId);

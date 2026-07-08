@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { PageHeader } from "@/components/shared/page-header";
 import { ProductsTable } from "./_components/products-table";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ShowForNonDemo } from "@/components/shared/authorized";
 
 interface ProductsPageProps {
   searchParams: Promise<{
@@ -24,12 +25,14 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   return (
     <div>
       <PageHeader title="Products" description="Manage your inventory products">
-        <Button asChild>
-          <Link href="/products/new">
-            <Plus className="h-4 w-4 mr-2" />
-            Add Product
-          </Link>
-        </Button>
+        <ShowForNonDemo>
+          <Button asChild>
+            <Link href="/products/new">
+              <Plus className="h-4 w-4 mr-2" />
+              Add Product
+            </Link>
+          </Button>
+        </ShowForNonDemo>
       </PageHeader>
 
       <Suspense fallback={<Skeleton className="h-96 rounded-xl" />}>

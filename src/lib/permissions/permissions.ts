@@ -4,28 +4,28 @@ type Permission = "read" | "create" | "update" | "delete" | "adjust";
 
 const PERMISSION_MATRIX: Record<string, Record<Permission, UserRole[]>> = {
   products: {
-    read: ["super_admin", "admin", "manager", "staff"],
+    read: ["super_admin", "admin", "manager", "staff", "demo"],
     create: ["super_admin", "admin", "manager"],
     update: ["super_admin", "admin", "manager"],
     delete: ["super_admin", "admin"],
     adjust: [] as UserRole[],
   },
   categories: {
-    read: ["super_admin", "admin", "manager", "staff"],
+    read: ["super_admin", "admin", "manager", "staff", "demo"],
     create: ["super_admin", "admin", "manager"],
     update: ["super_admin", "admin", "manager"],
     delete: ["super_admin", "admin"],
     adjust: [] as UserRole[],
   },
   suppliers: {
-    read: ["super_admin", "admin", "manager", "staff"],
+    read: ["super_admin", "admin", "manager", "staff", "demo"],
     create: ["super_admin", "admin", "manager"],
     update: ["super_admin", "admin", "manager"],
     delete: ["super_admin", "admin"],
     adjust: [] as UserRole[],
   },
   stock: {
-    read: ["super_admin", "admin", "manager", "staff"],
+    read: ["super_admin", "admin", "manager", "staff", "demo"],
     create: ["super_admin", "admin", "manager", "staff"],
     adjust: ["super_admin", "admin", "manager"],
     delete: [] as UserRole[],
@@ -53,14 +53,14 @@ const PERMISSION_MATRIX: Record<string, Record<Permission, UserRole[]>> = {
     adjust: [] as UserRole[],
   },
   reports: {
-    read: ["super_admin", "admin", "manager"],
+    read: ["super_admin", "admin", "manager", "demo"],
     create: ["super_admin", "admin"],
     update: [] as UserRole[],
     delete: [] as UserRole[],
     adjust: [] as UserRole[],
   },
   history: {
-    read: ["super_admin", "admin", "manager", "staff"],
+    read: ["super_admin", "admin", "manager", "staff", "demo"],
     create: [] as UserRole[],
     update: [] as UserRole[],
     delete: [] as UserRole[],

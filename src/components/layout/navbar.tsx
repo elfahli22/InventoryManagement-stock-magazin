@@ -77,9 +77,11 @@ export function Navbar({ onMenuClick }: NavbarProps) {
             <DropdownMenuItem onClick={() => router.push("/profile")}>
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => router.push("/settings")}>
-              Settings
-            </DropdownMenuItem>
+            {user?.role !== "demo" && (
+              <DropdownMenuItem onClick={() => router.push("/settings")}>
+                Settings
+              </DropdownMenuItem>
+            )}
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () => {

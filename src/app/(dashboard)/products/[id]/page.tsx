@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Package } from "lucide-react";
 import { DeleteProductButton } from "../_components/delete-product-button";
+import { ShowForNonDemo } from "@/components/shared/authorized";
 
 interface ProductDetailPageProps {
   params: Promise<{ id: string }>;
@@ -52,13 +53,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" asChild>
-            <Link href={`/products/${id}/edit`}>
-              <Edit className="h-4 w-4 mr-2" />
-              Edit
-            </Link>
-          </Button>
-          <DeleteProductButton id={id} />
+          <ShowForNonDemo>
+            <Button variant="outline" asChild>
+              <Link href={`/products/${id}/edit`}>
+                <Edit className="h-4 w-4 mr-2" />
+                Edit
+              </Link>
+            </Button>
+            <DeleteProductButton id={id} />
+          </ShowForNonDemo>
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { supplierService } from "@/lib/services/supplier.service";
 import { formatDate } from "@/lib/utils/formatters";
+import { ShowForNonDemo } from "@/components/shared/authorized";
 
 interface SupplierDetailPageProps {
   params: Promise<{ id: string }>;
@@ -38,12 +39,14 @@ export default async function SupplierDetailPage({ params }: SupplierDetailPageP
             <p className="text-sm text-muted-foreground">{supplier.company || "Independent"}</p>
           </div>
         </div>
-        <Button variant="outline" asChild>
-          <Link href={`/suppliers/${id}/edit`}>
-            <Edit className="h-4 w-4 mr-2" />
-            Edit
-          </Link>
-        </Button>
+        <ShowForNonDemo>
+          <Button variant="outline" asChild>
+            <Link href={`/suppliers/${id}/edit`}>
+              <Edit className="h-4 w-4 mr-2" />
+              Edit
+            </Link>
+          </Button>
+        </ShowForNonDemo>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">

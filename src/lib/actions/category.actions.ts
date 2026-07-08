@@ -4,6 +4,7 @@ import { categoryService } from "@/lib/services/category.service";
 import { createCategorySchema, updateCategorySchema } from "@/lib/validations/category";
 import { revalidatePath } from "next/cache";
 import { getSession, refreshSession } from "@/lib/auth/session";
+import { guardDemo } from "@/lib/permissions/guards";
 
 export async function createCategoryAction(formData: FormData) {
   let session = await getSession();
@@ -11,6 +12,8 @@ export async function createCategoryAction(formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -39,6 +42,8 @@ export async function updateCategoryAction(id: string, formData: FormData) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   const raw = {
     name: formData.get("name") as string,
@@ -67,6 +72,8 @@ export async function deleteCategoryAction(id: string) {
     session = await refreshSession();
   }
   if (!session) return { success: false, error: "Unauthorized" };
+  const demoError = guardDemo(session);
+  if (demoError) return { success: false, error: demoError };
 
   try {
     await categoryService.delete(id);
